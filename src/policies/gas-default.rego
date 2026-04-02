@@ -71,3 +71,8 @@ gas_decision := "fail" if { input.control_id == "gas-webapp-access-control"; inp
 gas_rule if { input.control_id == "gas-api-executable-access" }
 gas_severity := "error" if { input.control_id == "gas-api-executable-access"; input.status == "violated" }
 gas_decision := "fail" if { input.control_id == "gas-api-executable-access"; input.status == "violated" }
+
+# --- Head Drift ---
+gas_rule if { input.control_id == "gas-head-drift" }
+gas_severity := "error" if { input.control_id == "gas-head-drift"; input.status == "violated" }
+gas_decision := "fail" if { input.control_id == "gas-head-drift"; input.status == "violated" }

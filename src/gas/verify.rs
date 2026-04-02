@@ -83,6 +83,19 @@ pub fn collect_project_evidence(
 
     let has_explicit_gcp_project = project.parent_id.is_some();
 
+    // Fetch latest version content for head-drift comparison
+    let latest_version_files = versions_resp
+        .versions
+        .iter()
+        .filter_map(|v| v.version_number)
+        .max()
+        .and_then(|max_ver| {
+            client
+                .get_versioned_content::<ContentResponse>(script_id, max_ver)
+                .ok()
+                .map(|c| c.files)
+        });
+
     Ok(GasProjectEvidence {
         script_id: script_id.to_string(),
         title: project.title,
@@ -101,6 +114,8 @@ pub fn collect_project_evidence(
         deployments: deployments_resp.deployments,
         permissions,
         has_explicit_gcp_project,
+        head_files: content.files,
+        latest_version_files,
     })
 }
 

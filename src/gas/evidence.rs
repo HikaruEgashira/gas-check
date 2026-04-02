@@ -1,5 +1,5 @@
 use crate::gas::types::{
-    Deployment, DrivePermission, LibraryDependency, Manifest, Version, WebAppConfig,
+    Deployment, DrivePermission, LibraryDependency, Manifest, ScriptFile, Version, WebAppConfig,
     ExecutionApiConfig,
 };
 
@@ -40,4 +40,10 @@ pub struct GasProjectEvidence {
 
     // GCP project linkage
     pub has_explicit_gcp_project: bool,
+
+    // HEAD content files (current editor state)
+    pub head_files: Vec<ScriptFile>,
+
+    // Latest version content files (None if no versions exist)
+    pub latest_version_files: Option<Vec<ScriptFile>>,
 }

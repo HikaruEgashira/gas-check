@@ -10,6 +10,7 @@ pub mod description_quality;
 pub mod editor_count_audit;
 pub mod external_library_audit;
 pub mod gcp_project_linkage;
+pub mod head_drift;
 pub mod library_inventory;
 pub mod manifest_integrity;
 pub mod oauth_scope_minimization;
@@ -33,6 +34,7 @@ pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-manifest-integrity",
     "gas-webapp-access-control",
     "gas-api-executable-access",
+    "gas-head-drift",
 ];
 
 /// Instantiate all GAS-specific controls with shared evidence.
@@ -50,6 +52,7 @@ pub fn gas_controls(evidence: Arc<GasProjectEvidence>) -> Vec<Box<dyn Control>> 
         Box::new(library_inventory::LibraryInventoryControl::new(evidence.clone())),
         Box::new(manifest_integrity::ManifestIntegrityControl::new(evidence.clone())),
         Box::new(webapp_access_control::WebappAccessControl::new(evidence.clone())),
-        Box::new(api_executable_access::ApiExecutableAccessControl::new(evidence)),
+        Box::new(api_executable_access::ApiExecutableAccessControl::new(evidence.clone())),
+        Box::new(head_drift::HeadDriftControl::new(evidence)),
     ]
 }

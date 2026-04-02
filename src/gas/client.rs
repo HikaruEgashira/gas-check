@@ -82,6 +82,16 @@ impl GasClient {
         ))
     }
 
+    pub fn get_versioned_content<T: DeserializeOwned>(
+        &self,
+        script_id: &str,
+        version_number: i64,
+    ) -> Result<T> {
+        self.get_json(&format!(
+            "https://script.googleapis.com/v1/projects/{script_id}/content?versionNumber={version_number}"
+        ))
+    }
+
     pub fn get_versions<T: DeserializeOwned>(&self, script_id: &str) -> Result<T> {
         self.get_json(&format!(
             "https://script.googleapis.com/v1/projects/{script_id}/versions"
