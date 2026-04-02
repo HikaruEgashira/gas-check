@@ -36,10 +36,21 @@ impl Control for OauthScopeMinimizationControl {
     }
 
     fn remediation_hint(&self) -> Option<&'static str> {
-        Some("Replace broad OAuth scopes with narrower alternatives (e.g., use spreadsheets.currentonly instead of spreadsheets)")
+        Some("Explicitly declare oauthScopes in appsscript.json with the narrowest alternatives (e.g., spreadsheets.currentonly instead of spreadsheets). Omitting oauthScopes causes GAS to auto-infer permissions at runtime.")
     }
 
     fn evaluate(&self, _evidence: &EvidenceBundle) -> Vec<ControlFinding> {
+        // No explicit scopes means GAS auto-infers scopes at runtime,
+        // granting whatever permissions the code appears to need — this
+        // bypasses any least-privilege review.
+        if self.gas.oauth_scopes.is_empty() {
+            return vec![ControlFinding::violated(
+                self.id(),
+                "No oauthScopes declared in appsscript.json; GAS will auto-infer broad scopes at runtime".to_string(),
+                vec!["(implicit: auto-inferred by runtime)".to_string()],
+            )];
+        }
+
         let flagged: Vec<String> = self
             .gas
             .oauth_scopes
