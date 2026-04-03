@@ -32,15 +32,13 @@ gas_severity := "warning" if { input.control_id == "gas-oauth-scope-minimization
 gas_decision := "review" if { input.control_id == "gas-oauth-scope-minimization"; input.status == "violated" }
 
 # --- Change Management ---
-# HEAD deployments are read-only in GAS and cannot be deleted or reassigned via the API.
-# This is a platform constraint, not a misconfiguration — treat as review rather than fail.
 gas_rule if { input.control_id == "gas-version-hygiene" }
-gas_severity := "warning" if { input.control_id == "gas-version-hygiene"; input.status == "violated" }
-gas_decision := "review" if { input.control_id == "gas-version-hygiene"; input.status == "violated" }
+gas_severity := "error" if { input.control_id == "gas-version-hygiene"; input.status == "violated" }
+gas_decision := "fail" if { input.control_id == "gas-version-hygiene"; input.status == "violated" }
 
 gas_rule if { input.control_id == "gas-deployment-version-linkage" }
-gas_severity := "warning" if { input.control_id == "gas-deployment-version-linkage"; input.status == "violated" }
-gas_decision := "review" if { input.control_id == "gas-deployment-version-linkage"; input.status == "violated" }
+gas_severity := "error" if { input.control_id == "gas-deployment-version-linkage"; input.status == "violated" }
+gas_decision := "fail" if { input.control_id == "gas-deployment-version-linkage"; input.status == "violated" }
 
 gas_rule if { input.control_id == "gas-description-quality" }
 gas_severity := "info" if { input.control_id == "gas-description-quality"; input.status == "violated" }

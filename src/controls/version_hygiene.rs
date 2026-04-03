@@ -4,6 +4,14 @@ use libverify_core::control::{Control, ControlFinding, ControlId};
 use libverify_core::evidence::EvidenceBundle;
 
 use crate::gas::evidence::GasProjectEvidence;
+use crate::gas::types::Deployment;
+
+/// The GAS platform auto-creates a read-only @HEAD deployment with updateTime set to
+/// the Unix epoch ("1970-01-01T00:00:00Z"). This deployment cannot be deleted or
+/// reassigned via the API and should be excluded from version-hygiene checks.
+fn is_system_head_deployment(d: &Deployment) -> bool {
+    d.update_time.as_deref() == Some("1970-01-01T00:00:00Z")
+}
 
 pub struct VersionHygieneControl {
     gas: Arc<GasProjectEvidence>,
@@ -36,15 +44,15 @@ impl Control for VersionHygieneControl {
             )];
         }
 
+        // The system-generated @HEAD deployment has updateTime = "1970-01-01T00:00:00Z"
+        // (Unix epoch sentinel). It cannot be deleted or reassigned via the API, so
+        // exclude it from this check to avoid a permanent false positive.
         let head_deployments: Vec<String> = self
             .gas
             .deployments
             .iter()
-            .filter(|d| {
-                d.deployment_config
-                    .as_ref()
-                    .is_none_or(|c| c.version_number.is_none())
-            })
+            .filter(|d| !is_system_head_deployment(d))
+            .filter(|d| matches!(&d.deployment_config, Some(c) if c.version_number.is_none()))
             .map(|d| d.deployment_id.clone())
             .collect();
 

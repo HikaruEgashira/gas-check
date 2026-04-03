@@ -4,6 +4,11 @@ use libverify_core::control::{Control, ControlFinding, ControlId};
 use libverify_core::evidence::EvidenceBundle;
 
 use crate::gas::evidence::GasProjectEvidence;
+use crate::gas::types::Deployment;
+
+fn is_system_head_deployment(d: &Deployment) -> bool {
+    d.update_time.as_deref() == Some("1970-01-01T00:00:00Z")
+}
 
 pub struct DeploymentVersionLinkageControl {
     gas: Arc<GasProjectEvidence>,
@@ -47,11 +52,9 @@ impl Control for DeploymentVersionLinkageControl {
             .gas
             .deployments
             .iter()
+            .filter(|d| !is_system_head_deployment(d))
             .filter(|d| {
-                let ver = d
-                    .deployment_config
-                    .as_ref()
-                    .and_then(|c| c.version_number);
+                let ver = d.deployment_config.as_ref().and_then(|c| c.version_number);
                 match ver {
                     Some(v) => !version_numbers.contains(&v),
                     None => true,
