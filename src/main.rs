@@ -24,7 +24,7 @@ struct Cli {
     format: OutputFormat,
 
     /// Policy preset or path to .rego file
-    #[arg(long, default_value = "default", global = true)]
+    #[arg(long, default_value = "gas-default", global = true)]
     policy: String,
 
     /// Path to clasp credentials (~/.clasprc.json by default)
@@ -153,9 +153,9 @@ fn list_controls() {
 
 fn list_policies() {
     println!("Available policy presets:\n");
-    println!("  default     — Built-in libverify default (all controls strict)");
-    println!("  gas-default — GAS-tuned defaults (balanced severity)");
+    println!("  gas-default — GAS-tuned defaults, balanced severity (default)");
     println!("  gas-strict  — All GAS controls fail on violation");
+    println!("  default     — Built-in libverify default (all controls strict)");
     println!("  oss         — Tolerant for open-source projects");
     println!("  soc2        — SOC2 Trust Services mapping");
     println!();

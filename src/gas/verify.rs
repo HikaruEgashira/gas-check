@@ -5,7 +5,27 @@ use anyhow::{Context, Result};
 use libverify_core::assessment::VerificationResult;
 use libverify_core::control::Control;
 use libverify_core::evidence::EvidenceBundle;
+use libverify_core::control::ControlFinding;
+use libverify_core::profile::{ControlProfile, ProfileOutcome, SeverityLabels};
 use libverify_policy::OpaProfile;
+
+const GAS_DEFAULT_REGO: &str = include_str!("../policies/gas-default.rego");
+
+/// Wrapper that sets `name()` to "gas-default" while delegating all policy
+/// evaluation to the embedded OPA profile.
+struct GasDefaultProfile(OpaProfile);
+
+impl ControlProfile for GasDefaultProfile {
+    fn name(&self) -> &str {
+        "gas-default"
+    }
+    fn map(&self, finding: &ControlFinding) -> ProfileOutcome {
+        self.0.map(finding)
+    }
+    fn severity_labels(&self) -> SeverityLabels {
+        self.0.severity_labels()
+    }
+}
 
 use crate::controls;
 use crate::gas::adapter;
@@ -103,13 +123,18 @@ pub fn assess_bundle(
     policy_name: Option<&str>,
     extra_controls: Vec<Box<dyn Control>>,
 ) -> Result<VerificationResult> {
-    let profile = match policy_name {
-        Some(name) => OpaProfile::from_preset_or_file(name)?,
-        None => OpaProfile::from_preset_or_file("default")?,
-    };
+    let effective = policy_name.unwrap_or("gas-default");
 
     // Only use GAS-specific controls (skip built-in controls that expect GitHub data)
-    let report = libverify_core::assessment::assess(bundle, &extra_controls, &profile);
+    let report = if effective == "gas-default" {
+        let inner = OpaProfile::from_rego("gas-default.rego", GAS_DEFAULT_REGO)
+            .context("loading built-in gas-default policy")?;
+        let profile = GasDefaultProfile(inner);
+        libverify_core::assessment::assess(bundle, &extra_controls, &profile)
+    } else {
+        let profile = OpaProfile::from_preset_or_file(effective)?;
+        libverify_core::assessment::assess(bundle, &extra_controls, &profile)
+    };
 
     Ok(VerificationResult {
         report,
