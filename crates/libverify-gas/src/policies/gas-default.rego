@@ -81,3 +81,8 @@ gas_decision := "fail" if { input.control_id == "gas-head-drift"; input.status =
 gas_rule if { input.control_id == "gas-secret-scanning" }
 gas_severity := "error" if { input.control_id == "gas-secret-scanning"; input.status == "violated" }
 gas_decision := "fail" if { input.control_id == "gas-secret-scanning"; input.status == "violated" }
+
+# --- Edit Source Detection ---
+gas_rule if { input.control_id == "gas-edit-source-detection" }
+gas_severity := "warning" if { input.control_id == "gas-edit-source-detection"; input.status == "violated" }
+gas_decision := "review" if { input.control_id == "gas-edit-source-detection"; input.status == "violated" }

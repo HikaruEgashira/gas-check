@@ -7,6 +7,7 @@ use crate::evidence::GasProjectEvidence;
 pub mod api_executable_access;
 pub mod deployment_version_linkage;
 pub mod description_quality;
+pub mod edit_source_detection;
 pub mod editor_count_audit;
 pub mod external_library_audit;
 pub mod gcp_project_linkage;
@@ -14,10 +15,10 @@ pub mod head_drift;
 pub mod library_inventory;
 pub mod manifest_integrity;
 pub mod oauth_scope_minimization;
+pub mod secret_scanning;
 pub mod sharing_restriction;
 pub mod trigger_audit;
 pub mod version_hygiene;
-pub mod secret_scanning;
 pub mod webapp_access_control;
 
 /// All GAS-specific control IDs.
@@ -37,6 +38,7 @@ pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-api-executable-access",
     "gas-head-drift",
     "gas-secret-scanning",
+    "gas-edit-source-detection",
 ];
 
 /// Instantiate all GAS-specific controls with shared evidence.
@@ -56,6 +58,7 @@ pub fn gas_controls(evidence: Arc<GasProjectEvidence>) -> Vec<Box<dyn Control>> 
         Box::new(webapp_access_control::WebappAccessControl::new(evidence.clone())),
         Box::new(api_executable_access::ApiExecutableAccessControl::new(evidence.clone())),
         Box::new(head_drift::HeadDriftControl::new(evidence.clone())),
-        Box::new(secret_scanning::SecretScanningControl::new(evidence)),
+        Box::new(secret_scanning::SecretScanningControl::new(evidence.clone())),
+        Box::new(edit_source_detection::EditSourceDetectionControl::new(evidence)),
     ]
 }
