@@ -86,3 +86,18 @@ gas_decision := "fail" if { input.control_id == "gas-secret-scanning"; input.sta
 gas_rule if { input.control_id == "gas-edit-source-detection" }
 gas_severity := "warning" if { input.control_id == "gas-edit-source-detection"; input.status == "violated" }
 gas_decision := "review" if { input.control_id == "gas-edit-source-detection"; input.status == "violated" }
+
+# --- Change Scope ---
+gas_rule if { input.control_id == "gas-change-scope" }
+gas_severity := "warning" if { input.control_id == "gas-change-scope"; input.status == "violated" }
+gas_decision := "review" if { input.control_id == "gas-change-scope"; input.status == "violated" }
+
+# --- Version History Integrity ---
+gas_rule if { input.control_id == "gas-version-history-integrity" }
+gas_severity := "error" if { input.control_id == "gas-version-history-integrity"; input.status == "violated" }
+gas_decision := "fail" if { input.control_id == "gas-version-history-integrity"; input.status == "violated" }
+
+# --- Stale Deployment ---
+gas_rule if { input.control_id == "gas-stale-deployment" }
+gas_severity := "warning" if { input.control_id == "gas-stale-deployment"; input.status == "violated" }
+gas_decision := "review" if { input.control_id == "gas-stale-deployment"; input.status == "violated" }

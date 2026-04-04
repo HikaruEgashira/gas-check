@@ -5,35 +5,11 @@ use libverify_core::evidence::EvidenceBundle;
 
 use crate::evidence::GasProjectEvidence;
 
+use super::util::parse_epoch;
+
 /// Maximum spread (in seconds) between file update timestamps to classify as
 /// a batch push (clasp). Beyond this, we consider it manual editing.
 const BATCH_THRESHOLD_SECS: i64 = 30;
-
-/// Parse an RFC 3339 timestamp to epoch seconds.
-/// Returns None if the string is missing or malformed.
-fn parse_epoch(ts: &str) -> Option<i64> {
-    // Format: "2025-01-15T09:30:00.000Z" — we only need second-level precision.
-    // Avoid pulling in chrono by parsing manually.
-    let ts = ts.trim();
-    if ts.len() < 19 {
-        return None;
-    }
-    let year: i64 = ts[0..4].parse().ok()?;
-    let month: i64 = ts[5..7].parse().ok()?;
-    let day: i64 = ts[8..10].parse().ok()?;
-    let hour: i64 = ts[11..13].parse().ok()?;
-    let min: i64 = ts[14..16].parse().ok()?;
-    let sec: i64 = ts[17..19].parse().ok()?;
-
-    // Simplified days-since-epoch (good enough for spread calculation)
-    let days = (year - 1970) * 365 + (year - 1969) / 4 + day_of_year(month, day);
-    Some(days * 86400 + hour * 3600 + min * 60 + sec)
-}
-
-fn day_of_year(month: i64, day: i64) -> i64 {
-    const CUMULATIVE: [i64; 12] = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-    CUMULATIVE.get((month - 1) as usize).copied().unwrap_or(0) + day - 1
-}
 
 /// Classify the edit source based on file update timestamp clustering.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -250,10 +226,4 @@ mod tests {
         assert_eq!(findings[0].status, ControlStatus::Satisfied);
     }
 
-    #[test]
-    fn parse_epoch_basic() {
-        let a = parse_epoch("2025-06-01T10:00:00.000Z").unwrap();
-        let b = parse_epoch("2025-06-01T10:00:05.000Z").unwrap();
-        assert_eq!(b - a, 5);
-    }
 }
