@@ -906,6 +906,7 @@ dependencies = [
  "dirs",
  "libverify-core",
  "libverify-policy",
+ "libverify-secret-scan",
  "reqwest",
  "serde",
  "serde_json",
@@ -934,6 +935,13 @@ dependencies = [
  "regorus",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "libverify-secret-scan"
+version = "0.1.0"
+dependencies = [
+ "regex",
 ]
 
 [[package]]

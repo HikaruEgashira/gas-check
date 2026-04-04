@@ -76,3 +76,8 @@ gas_decision := "fail" if { input.control_id == "gas-api-executable-access"; inp
 gas_rule if { input.control_id == "gas-head-drift" }
 gas_severity := "error" if { input.control_id == "gas-head-drift"; input.status == "violated" }
 gas_decision := "fail" if { input.control_id == "gas-head-drift"; input.status == "violated" }
+
+# --- Secret Scanning ---
+gas_rule if { input.control_id == "gas-secret-scanning" }
+gas_severity := "error" if { input.control_id == "gas-secret-scanning"; input.status == "violated" }
+gas_decision := "fail" if { input.control_id == "gas-secret-scanning"; input.status == "violated" }

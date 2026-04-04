@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/libverify-gas", "crates/cli"]
+members = ["crates/libverify-secret-scan", "crates/libverify-gas", "crates/cli"]
 
 [profile.release]
 lto = true

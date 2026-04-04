@@ -1,0 +1,13 @@
+[package]
+name = "libverify-secret-scan"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/HikaruEgashira/gas-check"
+authors = ["Hikaru Egashira"]
+description = "Platform-agnostic secret scanning engine for the libverify ecosystem"
+keywords = ["secret-scanning", "security", "verification", "leaks"]
+categories = ["development-tools"]
+
+[dependencies]
+regex = "1"

@@ -17,9 +17,10 @@ pub mod oauth_scope_minimization;
 pub mod sharing_restriction;
 pub mod trigger_audit;
 pub mod version_hygiene;
+pub mod secret_scanning;
 pub mod webapp_access_control;
 
-/// All 13 GAS-specific control IDs.
+/// All GAS-specific control IDs.
 pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-sharing-restriction",
     "gas-editor-count-audit",
@@ -35,6 +36,7 @@ pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-webapp-access-control",
     "gas-api-executable-access",
     "gas-head-drift",
+    "gas-secret-scanning",
 ];
 
 /// Instantiate all GAS-specific controls with shared evidence.
@@ -53,6 +55,7 @@ pub fn gas_controls(evidence: Arc<GasProjectEvidence>) -> Vec<Box<dyn Control>> 
         Box::new(manifest_integrity::ManifestIntegrityControl::new(evidence.clone())),
         Box::new(webapp_access_control::WebappAccessControl::new(evidence.clone())),
         Box::new(api_executable_access::ApiExecutableAccessControl::new(evidence.clone())),
-        Box::new(head_drift::HeadDriftControl::new(evidence)),
+        Box::new(head_drift::HeadDriftControl::new(evidence.clone())),
+        Box::new(secret_scanning::SecretScanningControl::new(evidence)),
     ]
 }
