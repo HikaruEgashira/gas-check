@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use libverify_core::control::Control;
 
-use crate::gas::evidence::GasProjectEvidence;
+use crate::evidence::GasProjectEvidence;
 
 pub mod api_executable_access;
 pub mod deployment_version_linkage;

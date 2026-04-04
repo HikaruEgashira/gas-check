@@ -3,7 +3,7 @@ use std::sync::Arc;
 use libverify_core::control::{Control, ControlFinding, ControlId};
 use libverify_core::evidence::EvidenceBundle;
 
-use crate::gas::evidence::GasProjectEvidence;
+use crate::evidence::GasProjectEvidence;
 
 pub struct LibraryInventoryControl {
     gas: Arc<GasProjectEvidence>,

@@ -2,7 +2,7 @@ use anyhow::{Context, Result, bail};
 use reqwest::blocking::Client;
 use serde::Deserialize;
 
-use crate::gas::config::GasConfig;
+use crate::config::GasConfig;
 
 #[derive(Debug, Deserialize)]
 struct TokenResponse {

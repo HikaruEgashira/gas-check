@@ -466,17 +466,14 @@ dependencies = [
 
 [[package]]
 name = "gas-check"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "anyhow",
  "clap",
  "colored",
- "dirs",
  "libverify-core",
+ "libverify-gas",
  "libverify-output",
- "libverify-policy",
- "reqwest",
- "serde",
  "serde_json",
 ]
 
@@ -897,6 +894,19 @@ version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "362172a2790a4fcafb195087d0cd2215b87e7079853cb11ad4a79e34f868dc96"
 dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "libverify-gas"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "dirs",
+ "libverify-core",
+ "libverify-policy",
+ "reqwest",
  "serde",
  "serde_json",
 ]

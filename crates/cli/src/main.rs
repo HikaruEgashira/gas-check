@@ -1,5 +1,3 @@
-mod controls;
-mod gas;
 mod output;
 
 use std::path::PathBuf;
@@ -8,10 +6,10 @@ use std::process;
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand, ValueEnum};
 
-use gas::auth;
-use gas::client::GasClient;
-use gas::config::GasConfig;
-use gas::verify;
+use libverify_gas::auth;
+use libverify_gas::client::GasClient;
+use libverify_gas::config::GasConfig;
+use libverify_gas::verify;
 
 #[derive(Parser)]
 #[command(name = "gas-check", version, about = "GAS project governance verification CLI")]
@@ -144,8 +142,8 @@ fn run_project(cli: &Cli, script_id: &str) -> Result<()> {
 }
 
 fn list_controls() {
-    println!("GAS-specific controls ({}):\n", controls::ALL_GAS_CONTROLS.len());
-    for id in controls::ALL_GAS_CONTROLS {
+    println!("GAS-specific controls ({}):\n", libverify_gas::controls::ALL_GAS_CONTROLS.len());
+    for id in libverify_gas::controls::ALL_GAS_CONTROLS {
         println!("  {id}");
     }
     println!();

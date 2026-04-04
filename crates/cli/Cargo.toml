@@ -1,0 +1,20 @@
+[package]
+name = "gas-check"
+version = "0.1.5"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/HikaruEgashira/gas-check"
+authors = ["Hikaru Egashira"]
+
+[[bin]]
+name = "gas-check"
+path = "src/main.rs"
+
+[dependencies]
+libverify-gas = { path = "../libverify-gas" }
+libverify-core = "0.9"
+libverify-output = "0.9"
+clap = { version = "4", features = ["derive"] }
+colored = "3"
+serde_json = "1"
+anyhow = "1"

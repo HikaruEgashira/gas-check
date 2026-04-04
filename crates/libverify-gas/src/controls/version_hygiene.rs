@@ -3,8 +3,8 @@ use std::sync::Arc;
 use libverify_core::control::{Control, ControlFinding, ControlId};
 use libverify_core::evidence::EvidenceBundle;
 
-use crate::gas::evidence::GasProjectEvidence;
-use crate::gas::types::Deployment;
+use crate::evidence::GasProjectEvidence;
+use crate::types::Deployment;
 
 /// The GAS platform auto-creates a read-only @HEAD deployment with updateTime set to
 /// the Unix epoch ("1970-01-01T00:00:00Z"). This deployment cannot be deleted or

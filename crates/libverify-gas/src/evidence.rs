@@ -1,4 +1,4 @@
-use crate::gas::types::{
+use crate::types::{
     Deployment, DrivePermission, LibraryDependency, Manifest, ScriptFile, Version, WebAppConfig,
     ExecutionApiConfig,
 };

@@ -9,7 +9,7 @@ use libverify_core::control::ControlFinding;
 use libverify_core::profile::{ControlProfile, ProfileOutcome, SeverityLabels};
 use libverify_policy::OpaProfile;
 
-const GAS_DEFAULT_REGO: &str = include_str!("../policies/gas-default.rego");
+const GAS_DEFAULT_REGO: &str = include_str!("policies/gas-default.rego");
 
 /// Wrapper that sets `name()` to "gas-default" while delegating all policy
 /// evaluation to the embedded OPA profile.
@@ -28,10 +28,10 @@ impl ControlProfile for GasDefaultProfile {
 }
 
 use crate::controls;
-use crate::gas::adapter;
-use crate::gas::client::GasClient;
-use crate::gas::evidence::GasProjectEvidence;
-use crate::gas::types::{
+use crate::adapter;
+use crate::client::GasClient;
+use crate::evidence::GasProjectEvidence;
+use crate::types::{
     ContentResponse, DeploymentsResponse, Manifest, PermissionsResponse, Project,
     VersionsResponse,
 };

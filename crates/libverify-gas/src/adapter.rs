@@ -1,7 +1,7 @@
 use libverify_core::evidence::{EvidenceBundle, EvidenceState};
 
-use crate::gas::evidence::GasProjectEvidence;
-use crate::gas::types::Manifest;
+use crate::evidence::GasProjectEvidence;
+use crate::types::Manifest;
 
 /// Build a minimal `EvidenceBundle` from GAS project evidence.
 ///
