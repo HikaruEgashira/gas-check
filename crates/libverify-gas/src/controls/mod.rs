@@ -24,6 +24,28 @@ pub mod version_history_integrity;
 pub mod version_hygiene;
 pub mod webapp_access_control;
 
+/// Control ID → description pairs for CLI display.
+pub const CONTROL_DESCRIPTIONS: &[(&str, &str)] = &[
+    ("gas-sharing-restriction", "Project must not be shared broadly (no 'anyone' or 'domain' permissions)"),
+    ("gas-editor-count-audit", "Number of editors on the project should be limited"),
+    ("gas-oauth-scope-minimization", "OAuth scopes in appsscript.json should follow least-privilege principle"),
+    ("gas-version-hygiene", "Deployments must reference a specific version, not HEAD"),
+    ("gas-deployment-version-linkage", "Every active deployment must be linked to an existing version"),
+    ("gas-description-quality", "Versions should have meaningful descriptions"),
+    ("gas-trigger-audit", "Audit OAuth scopes available to triggers for appropriate privilege level"),
+    ("gas-external-library-audit", "External libraries must be pinned to specific versions (not development mode)"),
+    ("gas-gcp-project-linkage", "Project should be linked to an explicit GCP project (not the default invisible project)"),
+    ("gas-library-inventory", "All external library dependencies must be inventoried"),
+    ("gas-manifest-integrity", "appsscript.json must be well-formed and declare expected runtime version"),
+    ("gas-webapp-access-control", "Web app deployments must restrict access (not 'ANYONE_ANONYMOUS')"),
+    ("gas-api-executable-access", "API executable deployments must restrict access"),
+    ("gas-head-drift", "HEAD must not diverge from the latest version (no unversioned changes in production)"),
+    ("gas-secret-scanning", "Source files must not contain hardcoded secrets (API keys, tokens, passwords, private keys)"),
+    ("gas-edit-source-detection", "HEAD content should be pushed via clasp (batch API), not edited manually in the web IDE"),
+    ("gas-version-history-integrity", "Version history must be sequential and have monotonically increasing timestamps"),
+    ("gas-stale-deployment", "Deployments should not point to versions that are 2+ versions behind the latest"),
+];
+
 /// All GAS-specific control IDs.
 pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-sharing-restriction",

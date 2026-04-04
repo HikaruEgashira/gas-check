@@ -68,11 +68,11 @@ gas-check project <script-id> --format json --with-evidence
 gas-check project <script-id> --quiet
 ```
 
-Exit codes: `0` = all controls pass, `1` = verification failure.
+Exit codes: `0` = all controls pass, `1` = verification found failures or items requiring review, `2` = runtime error.
 
 ## Controls
 
-gas-check includes 19 GAS-specific controls:
+gas-check includes 18 GAS-specific controls:
 
 | Control | Description |
 |---------|-------------|

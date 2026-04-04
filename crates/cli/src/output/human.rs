@@ -18,10 +18,19 @@ pub fn render(result: &VerificationResult, only_failures: bool) {
     let mut na_count = 0u32;
 
     for outcome in &report.outcomes {
-        match outcome.decision {
-            GateDecision::Pass => pass_count += 1,
-            GateDecision::Fail => fail_count += 1,
-            GateDecision::Review => review_count += 1,
+        // Check if this outcome corresponds to a NotApplicable finding
+        let is_na = report.findings.iter().any(|f| {
+            f.control_id == outcome.control_id && f.status == ControlStatus::NotApplicable
+        });
+
+        if is_na {
+            na_count += 1;
+        } else {
+            match outcome.decision {
+                GateDecision::Pass => pass_count += 1,
+                GateDecision::Fail => fail_count += 1,
+                GateDecision::Review => review_count += 1,
+            }
         }
 
         let is_failure = outcome.decision == GateDecision::Fail
@@ -64,13 +73,6 @@ pub fn render(result: &VerificationResult, only_failures: bool) {
                     finding.subjects.len() - 3
                 );
             }
-        }
-    }
-
-    // Count not-applicable from findings
-    for finding in &report.findings {
-        if finding.status == ControlStatus::NotApplicable {
-            na_count += 1;
         }
     }
 
