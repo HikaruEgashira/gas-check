@@ -12,7 +12,7 @@
 
 [![CI](https://github.com/HikaruEgashira/gas-check/actions/workflows/ci.yml/badge.svg)](https://github.com/HikaruEgashira/gas-check/actions/workflows/ci.yml)
 
-gas-check evaluates the security, compliance, and best-practice posture of Google Apps Script projects through 19 domain-specific controls. It checks sharing settings, OAuth scopes, deployment hygiene, secret leakage, and more.
+gas-check evaluates the security, compliance, and best-practice posture of Google Apps Script projects through 18 domain-specific controls. It checks sharing settings, OAuth scopes, deployment hygiene, secret leakage, and more.
 
 Powered by [libverify](https://github.com/HikaruEgashira/libverify).
 
@@ -92,7 +92,6 @@ gas-check includes 19 GAS-specific controls:
 | `gas-head-drift` | Detects unversioned HEAD changes in the editor |
 | `gas-secret-scanning` | Scans source for hardcoded secrets (API keys, tokens, passwords) |
 | `gas-edit-source-detection` | Detects whether code was pushed via clasp or edited manually |
-| `gas-change-scope` | Ensures changes between HEAD and latest version are small and scoped |
 | `gas-version-history-integrity` | Checks version history for sequential numbering and monotonic timestamps |
 | `gas-stale-deployment` | Detects deployments pointing to versions 2+ behind the latest |
 

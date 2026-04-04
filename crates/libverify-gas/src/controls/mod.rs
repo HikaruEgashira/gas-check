@@ -5,7 +5,6 @@ use libverify_core::control::Control;
 use crate::evidence::GasProjectEvidence;
 
 pub mod api_executable_access;
-pub mod change_scope;
 pub mod deployment_version_linkage;
 pub mod description_quality;
 pub mod edit_source_detection;
@@ -43,7 +42,6 @@ pub const ALL_GAS_CONTROLS: &[&str] = &[
     "gas-head-drift",
     "gas-secret-scanning",
     "gas-edit-source-detection",
-    "gas-change-scope",
     "gas-version-history-integrity",
     "gas-stale-deployment",
 ];
@@ -67,7 +65,6 @@ pub fn gas_controls(evidence: Arc<GasProjectEvidence>) -> Vec<Box<dyn Control>> 
         Box::new(head_drift::HeadDriftControl::new(evidence.clone())),
         Box::new(secret_scanning::SecretScanningControl::new(evidence.clone())),
         Box::new(edit_source_detection::EditSourceDetectionControl::new(evidence.clone())),
-        Box::new(change_scope::ChangeScopeControl::new(evidence.clone())),
         Box::new(version_history_integrity::VersionHistoryIntegrityControl::new(evidence.clone())),
         Box::new(stale_deployment::StaleDeploymentControl::new(evidence)),
     ]
