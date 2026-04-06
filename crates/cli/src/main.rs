@@ -94,6 +94,15 @@ fn run_project(
     with_evidence: bool,
     only_failures: bool,
 ) -> Result<()> {
+    // Deployment IDs start with "AKfyc" — give a clear hint before hitting the API.
+    if script_id.starts_with("AKfyc") {
+        anyhow::bail!(
+            "invalid argument: deployment ID given, but script project ID expected\n\n\
+             hint: open the project in script.google.com and copy the ID from the URL:\n\
+             \x20      https://script.google.com/home/projects/<SCRIPT_ID>/edit"
+        );
+    }
+
     if script_id.is_empty() {
         anyhow::bail!("script ID cannot be empty. Find your script ID in Apps Script > Project Settings.");
     }
