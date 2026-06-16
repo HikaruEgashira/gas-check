@@ -471,7 +471,7 @@ dependencies = [
  "anyhow",
  "clap",
  "colored",
- "libverify-core",
+ "libverify-core 0.9.0",
  "libverify-gas",
  "libverify-output",
  "serde_json",
@@ -899,27 +899,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "libverify-core"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4bf04fe144de878aa573e9ba3ac116f8b9ec2a7805f28414e6dc6a522d0443b5"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "libverify-gas"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "dirs",
- "libverify-core",
+ "libverify-core 0.9.0",
  "libverify-policy",
  "libverify-secret-scan",
- "reqwest",
+ "reqwest 0.12.28",
  "serde",
  "serde_json",
 ]
 
 [[package]]
 name = "libverify-output"
-version = "0.9.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "969970376eb9161d32303f47c2b5b02b837431440988e264e660427cfc257b90"
+checksum = "808a36304630eb86ebd0145f0ee788cccd7a41636cf8439f3e818ac5419e3516"
 dependencies = [
  "anyhow",
- "libverify-core",
+ "libverify-core 0.12.0",
+ "libverify-vanta",
  "serde",
  "serde_json",
 ]
@@ -931,7 +942,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "40dfd24ee678d099d95e2ec1a26dcd8d057da127ca5445575b5481cc040cee49"
 dependencies = [
  "anyhow",
- "libverify-core",
+ "libverify-core 0.9.0",
  "regorus",
  "serde",
  "serde_json",
@@ -942,6 +953,19 @@ name = "libverify-secret-scan"
 version = "0.1.0"
 dependencies = [
  "regex",
+]
+
+[[package]]
+name = "libverify-vanta"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "243f192e27fa595cd319ca97fb48510beace6544ea9de0f8129dc8ee72be9927"
+dependencies = [
+ "anyhow",
+ "libverify-core 0.12.0",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -1482,6 +1506,40 @@ dependencies = [
  "sync_wrapper",
  "tokio",
  "tokio-rustls",
+ "tower",
+ "tower-http",
+ "tower-service",
+ "url",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "reqwest"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04e9018c9d814e5f30cc16a0f03271aeab3571e609612d9fe78c1aa8d11c2f62"
+dependencies = [
+ "base64",
+ "bytes",
+ "futures-channel",
+ "futures-core",
+ "futures-util",
+ "http",
+ "http-body",
+ "http-body-util",
+ "hyper",
+ "hyper-util",
+ "js-sys",
+ "log",
+ "percent-encoding",
+ "pin-project-lite",
+ "rustls-native-certs",
+ "serde",
+ "serde_json",
+ "sync_wrapper",
+ "tokio",
  "tower",
  "tower-http",
  "tower-service",
