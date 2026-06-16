@@ -12,7 +12,7 @@ path = "src/main.rs"
 
 [dependencies]
 libverify-gas = { path = "../libverify-gas" }
-libverify-core = "0.9"
+libverify-core = "0.13"
 libverify-output = "0.9"
 clap = { version = "4", features = ["derive"] }
 colored = "3"
