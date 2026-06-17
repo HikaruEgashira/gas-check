@@ -10,8 +10,8 @@ keywords = ["gas", "google-apps-script", "verification", "governance"]
 categories = ["development-tools"]
 
 [dependencies]
-libverify-core = "0.9"
-libverify-policy = "0.9"
+libverify-core = "0.12.0"
+libverify-policy = "0.12.0"
 reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls-native-roots"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
