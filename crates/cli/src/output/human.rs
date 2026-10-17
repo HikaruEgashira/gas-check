@@ -9,7 +9,7 @@ pub fn render(result: &VerificationResult, only_failures: bool) {
     println!(
         "\n{} (policy: {})\n",
         "GAS Project Verification".bold(),
-        &report.profile_name
+        report.profile_name
     );
 
     let mut pass_count = 0u32;
