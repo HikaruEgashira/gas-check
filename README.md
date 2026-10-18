@@ -23,9 +23,9 @@ Powered by [libverify](https://github.com/HikaruEgashira/libverify).
 ## Quick Start
 
 ```bash
-# 1. Install (download binary from releases; linux/amd64 is the only published asset)
-curl -LO https://github.com/HikaruEgashira/gas-check/releases/latest/download/gas-check-x86_64-unknown-linux-gnu.tar.gz
-tar xzf gas-check-x86_64-unknown-linux-gnu.tar.gz
+# 1. Install (download binary from releases; linux/arm64 is the only published asset)
+curl -LO https://github.com/HikaruEgashira/gas-check/releases/latest/download/gas-check-aarch64-unknown-linux-gnu.tar.gz
+tar xzf gas-check-aarch64-unknown-linux-gnu.tar.gz
 sudo mv gas-check /usr/local/bin/
 
 # 2. Authenticate via clasp (uses ~/.clasprc.json)
@@ -35,9 +35,8 @@ npx @google/clasp login
 gas-check project <script-id>
 ```
 
-No darwin asset is published: the macOS runner is gone and a Rust darwin target is
-not cross-buildable in the Linux CI image. On macOS, build from a checkout
-(`cargo build --release`).
+No darwin or x86_64 asset is published: the runner fleet is ARM64 and the macOS
+runner is gone. On other platforms, build from a checkout (`cargo build --release`).
 
 ## Usage
 

@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: x86_64-unknown-linux-gnu
+          - target: aarch64-unknown-linux-gnu
             os: hikae-flash
     timeout-minutes: 5
     runs-on: ${{ matrix.os }}
